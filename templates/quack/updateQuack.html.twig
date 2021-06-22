@@ -26,6 +26,7 @@
             background-color: #333;
             color: #fff;
         }
+
     </style>
 
     <div class="example-wrapper">
@@ -37,12 +38,11 @@
                             href="{{ '/home/b043d0n/Bureau/dev/QuackNet/src/Controller/QuackController.php'|file_link(0) }}">src/Controller/QuackController.php</a></code>
             </li>
             <li>Your template at <code><a
-                            href="{{ '/home/b043d0n/Bureau/dev/QuackNet/templates/quack/index.html.twig'|file_link(0) }}">templates/quack/index.html.twig</a></code>
+                            href="{{ '/home/b043d0n/Bureau/dev/QuackNet/templates/quack/updateQuack.html.twig'|file_link(0) }}">templates/quack/updateQuack.html.twig</a></code>
             </li>
         </ul>
 
-
-        <table>
+        <table class>
             <thead>
             <tr>
                 <th>Id</th>
@@ -51,13 +51,11 @@
             </tr>
             </thead>
             <tbody>
-            {% for quack in quacks %}
                 <tr>
                     <td>{{ quack.id }}</td>
                     <td>{{ quack.content }}</td>
                     <td>{{ quack.createdAt|date }}</td>
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
     </div>
