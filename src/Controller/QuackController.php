@@ -79,27 +79,21 @@ class QuackController extends AbstractController
     }
 
     /**
-     *@Route("/delete", name="delete")
+     *@Route("/delete/{id}", name="delete")
      * */
 
-    public function delete(): Response
+    public function delete(int $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $quack = $entityManager->getRepository(Quack::class)->find($id);
 
-        if (!$quack) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
-
-        $quack->setContent("ZEUUUUUUUUUUUHHHH");
+        $deleteMessage = 'The quack n°'.$id.' was delete.';
+        $entityManager->remove($quack);
         $entityManager->flush();
 
-
-        return $this->render('quack/updateQuack.html.twig', [
+        return $this->render('quack/deleteQuack.html.twig', [
             'controller_name' => 'QuackController',
-            'quack' => $quack
+            'message' => $deleteMessage
         ]);
 
     }
