@@ -6,6 +6,7 @@ use App\Entity\Quack;
 use App\Repository\QuackRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\DateTime as ConstraintsDateTime;
@@ -34,21 +35,20 @@ class QuackController extends AbstractController
     *@Route("/create", name="create")
      * */
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
+        
         $quack = new Quack();
-
-        $quack->setContent("WAZAAAAAA");
-        $quack->setCreatedAt(new \DateTimeImmutable());
-
+        $form = $this->createForm(QuackType::class, $quack);
+        $form->handleRequest($request);
+    
+        $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($quack);
         $entityManager->flush();
 
         return $this->render('quack/createQuack.html.twig', [
-            'controller_name' => 'QuackController',
-            'quack' => $quack
+            'quack' => $quack,
+            'form' => $form->createView(),
         ]);
 
     }

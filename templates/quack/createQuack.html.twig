@@ -1,51 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuackController!{% endblock %}
+{% block title %}Quacker power{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+    
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a
-                            href="{{ '/home/b043d0n/Bureau/dev/QuackNet/src/Controller/QuackController.php'|file_link(0) }}">src/Controller/QuackController.php</a></code>
-            </li>
-            <li>Your template at <code><a
-                            href="{{ '/home/b043d0n/Bureau/dev/QuackNet/templates/quack/createQuack.html.twig'|file_link(0) }}">templates/quack/createQuack.html.twig</a></code>
-            </li>
-        </ul>
-
-
+    <div class="container">
+        <h1>Quacker</h1>
         <table>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Content</th>
-                <th>Created At</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{{ quack.id }}</td>
-                <td>{{ quack.content }}</td>
-                <td>{{ quack.createdAt|date }}</td>
-            </tr>
-            </tbody>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Content</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ quack.id }}</td>
+                    <td>{{ quack.content }}</td>
+                    <td>{{ quack.createdAt|date }}</td>
+                </tr>
+                </tbody>
         </table>
     </div>
 {% endblock %}
