@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quack;
+use App\Form\QuackType;
 use App\Repository\QuackRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,19 +33,25 @@ class QuackController extends AbstractController
     }
 
     /**
-    *@Route("/create", name="create")
+    *@Route("/create", name="create", methods={"GET","POST"})
      * */
 
     public function create(Request $request): Response
     {
         
         $quack = new Quack();
+        $quack->setCreatedAt(new \DateTimeImmutable());
         $form = $this->createForm(QuackType::class, $quack);
         $form->handleRequest($request);
+        
     
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($quack);
-        $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($quack);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('quackindex');
+        }
 
         return $this->render('quack/createQuack.html.twig', [
             'quack' => $quack,

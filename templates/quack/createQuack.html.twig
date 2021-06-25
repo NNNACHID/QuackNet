@@ -6,22 +6,13 @@
     
 
     <div class="container">
+
         <h1>Quacker</h1>
-        <table>
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Content</th>
-                    <th>Created At</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ quack.id }}</td>
-                    <td>{{ quack.content }}</td>
-                    <td>{{ quack.createdAt|date }}</td>
-                </tr>
-                </tbody>
-        </table>
+        
+        {{ include('quack/_form.html.twig') }}
+
+        <a href="{{ path('quackindex') }}" class="button">Return inna di Quacks</a>
+
     </div>
 {% endblock %}
+

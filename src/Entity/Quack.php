@@ -29,7 +29,7 @@ class Quack
 
     public function __construct()
     {
-       $this->created_at = new \DateTimeImmutable()
+       $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

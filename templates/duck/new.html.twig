@@ -3,9 +3,12 @@
 {% block title %}New Duck{% endblock %}
 
 {% block body %}
+<div class="container quackBox">
     <h1>Create new Duck</h1>
-
+   
+    <div class="registerForm">
     {{ include('duck/_form.html.twig') }}
-
-    <a href="{{ path('duck_index') }}">back to list</a>
+    </div>
+    <a href="{{ path('duck_index') }}" class="button">back to list</a>
+</div>
 {% endblock %}
