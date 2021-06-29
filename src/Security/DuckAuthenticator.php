@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
+class DuckAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
@@ -31,7 +31,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-        //dd('blop');
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
@@ -47,14 +46,13 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        //dd('blop');
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('quackindex'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+
     }
 
     protected function getLoginUrl(Request $request): string

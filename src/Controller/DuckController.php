@@ -20,6 +20,7 @@ class DuckController extends AbstractController
      */
     public function index(DuckRepository $duckRepository): Response
     {
+
         return $this->render('duck/index.html.twig', [
             'ducks' => $duckRepository->findAll(),
         ]);
