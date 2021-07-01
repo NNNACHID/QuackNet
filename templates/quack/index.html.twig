@@ -10,12 +10,16 @@
         {% for quack in quacks %}
         <div class="quackBox">
             <div class="row">
-                    <div class="seven columns">
+                    <div class="four columns">
                         {{ quack.id }}
                     </div>
-                    <div class="five columns">
+                    <div class="four columns">
                         {{ quack.createdAt|date() }}
                     </div>
+                <div class="four columns">
+                    {{ quack.duckId.duckname }}
+                </div>
+
             </div>
             <div class="quackText">
                 {{ quack.content }}

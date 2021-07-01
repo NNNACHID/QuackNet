@@ -27,6 +27,12 @@ class Quack
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Duck::class, inversedBy="quacks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $DuckId;
+
     public function __construct()
     {
        $this->created_at = new \DateTimeImmutable();
@@ -57,6 +63,18 @@ class Quack
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getDuckId(): ?Duck
+    {
+        return $this->DuckId;
+    }
+
+    public function setDuckId(?Duck $DuckId): self
+    {
+        $this->DuckId = $DuckId;
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DuckRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -43,7 +45,7 @@ class Duck implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
-    /**
+    /**quack
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
@@ -58,6 +60,16 @@ class Duck implements UserInterface, PasswordAuthenticatedUserInterface
      *
      */
     private $duckname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Quack::class, mappedBy="DuckId")
+     */
+    private $quacks;
+
+    public function __construct()
+    {
+        $this->quacks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -192,6 +204,36 @@ class Duck implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDuckname(string $duckname): self
     {
         $this->duckname = $duckname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Quack[]
+     */
+    public function getQuacks(): Collection
+    {
+        return $this->quacks;
+    }
+
+    public function addQuack(Quack $quack): self
+    {
+        if (!$this->quacks->contains($quack)) {
+            $this->quacks[] = $quack;
+            $quack->setDuckId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuack(Quack $quack): self
+    {
+        if ($this->quacks->removeElement($quack)) {
+            // set the owning side to null (unless already changed)
+            if ($quack->getDuckId() === $this) {
+                $quack->setDuckId(null);
+            }
+        }
 
         return $this;
     }

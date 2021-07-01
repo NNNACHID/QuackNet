@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Quack;
 use App\Form\QuackType;
 use App\Repository\QuackRepository;
+use App\Entity\Duck;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,12 +41,13 @@ class QuackController extends AbstractController
     {
         
         $quack = new Quack();
-        $quack->setCreatedAt(new \DateTimeImmutable());
         $form = $this->createForm(QuackType::class, $quack);
         $form->handleRequest($request);
         
     
         if ($form->isSubmitted() && $form->isValid()){
+            $quack->setCreatedAt(new \DateTimeImmutable());
+            $quack->setDuckId($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($quack);
             $entityManager->flush();
